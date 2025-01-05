@@ -37,16 +37,21 @@ MY_PASS = os.environ.get("MY_PASS", None)
 pass_dict = {}
 pass_db = Database(Var.DATABASE_URL, "ag_passwords")
 
-msg_text ="""
-<b>ʏᴏᴜʀ ʟɪɴᴋ ɪs ɢᴇɴᴇʀᴀᴛᴇᴅ...⚡</b>
+msg_text = """
+<b>ʏᴏᴜʀ ʟɪɴᴋ ɪs ɢᴇɴᴇʀᴀᴛᴇᴅ...⚡️</b>
 
 <b>📧 ꜰɪʟᴇ ɴᴀᴍᴇ :- </b> <i>{}</i>
 
 <b>📦 ꜰɪʟᴇ sɪᴢᴇ :- </b> <i>{}</i>
 
+<b>💻 ꜱᴛʀᴇᴀᴍ ʟɪɴᴋ :- </b> <i>{}</i>
+
+<b>⬇️ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ :- </b> <i>{}</i>
+
 <b>⚠️ ᴛʜɪꜱ ʟɪɴᴋ ᴡɪʟʟ ᴇxᴘɪʀᴇ ᴀꜰᴛᴇʀ 𝟼 ʜᴏᴜʀꜱ</b>
 
-<b>❇️ ʙʏ : @TechifyBots</b>"""
+<b>❇️ ʙʏ : @god</b>"""
+
 
 @StreamBot.on_message((filters.private) & (filters.document | filters.video | filters.audio | filters.photo) , group=4)
 async def private_receive_handler(c: Client, m: Message):
@@ -111,7 +116,12 @@ async def private_receive_handler(c: Client, m: Message):
             disable_web_page_preview=True, quote=True
         )
         k = await m.reply_text(
-            text=msg_text.format(get_name(log_msg), humanbytes(get_media_file_size(m))),
+            text=msg_text.format(
+                get_name(log_msg), 
+                humanbytes(get_media_file_size(m)),
+                stream,  # Stream link
+                download  # Download link
+            ),
             quote=True,
             reply_markup=InlineKeyboardMarkup([
                 [InlineKeyboardButton("• ꜱᴛʀᴇᴀᴍ •", url=stream),
